@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/cabin.png">
+    <link href="/styles/main.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Quicksand:300|Source+Code+Pro:400,700|Quattrocento+Sans:400,400italic,700,700italic" rel="stylesheet">
+    <title>On Static Site Generators :: not.even.code.</title>
+  </head>
+  <body>
+    <div class="center">
+      <nav class="group">
+        <h2 title="Well, maybe a bit." class="name"><a href="/">not.even.code.</a></h2>
+        <ul class="nav-links">
+          <li class="text-link"><a href="/about.html">about</a></li>
+          <li class="text-link"><a href="/archives.html">archives</a></li>
+        </ul>
+      </nav>
+      <div class="post-head group"><a href="/posts/on-static-site-generators/">
+          <h1 class="post-title">On Static Site Generators</h1></a><span class="post-date">Published  August 29, 2013</span></div>
+      <div class="post-body"><p>Static site generators seem to be the current in-vogue project an individual 
+can craft in their spare time. All the tools you need to plop one together 
+are there, in numerous languages - a markup-&gt;html compiler, a syntax 
+highlighter, a simple web server, a file watcher,  and of course myriad 
+css and js frameworks, transpilers and minifiers.</p>
+<p>And in turn we have a myriad of static site generators. No one thinks the set 
+of constrains and flexibilities that anyone else&#39;s implements is quite right 
+for their situation, and I think this is a good thing. The more I get to 
+experiment with, or cynically judge unworthy!</p>
+<p>This is my first post using one now. I have used 
+<a href="http://octopress.org">Octopress</a> before, but the theming and post creation 
+process was too involved. That may seem incredulous to anyone that has 
+used it, and indeed I still think it&#39;s a great project, but the 
+barrier-to-entry of creating a post needs to be practically zero. 
+If you wish to change your post&#39;s title, there&#39;s a little messing around 
+involved, not good enough! Creating a new theme for it is also a little 
+daunting. Not anything impossible, simply more nitpicky than I&#39;d like.</p>
+<p>Octopress is based on the awesome <a href="http://jekyllrb.com">Jekyll</a> though, which 
+I have used to help create some great tutorials, so it&#39;s not all bad. Really, 
+it&#39;s hard not to be awesome when github will compile and host it for you!</p>
+<p>Recently I&#39;ve been wanting to check out soom of the tools surrounding NodeJS 
+so I decided to invent this blog in something from that. <em>My</em> main constraint 
+in choosing from the gaggle (or hundreds, between everything availabe from 
+Node, Ruby, Python and Go) was something with extracted themes.</p>
+<p>What&#39;s so hard about separating content (...the blog/site) from 
+presentation (how it looks)? I thought people had learnt this lesson way 
+back in the early 2000s when they decided <code>&lt;center&gt;</code> really wasn&#39;t 
+the way to go. What&#39;s my idea here? Well, simple - include a theme as a 
+git submodule. If I want to change look, there&#39;s no more messing around with 
+three or four different folders, trying to figure out what is central to 
+a basic look and what gives things pizzazz - just clone a different 
+theme&#39;s repository.</p>
+<p>I had looked at <a href="http://wintersmith.io/">Wintersmith</a> recently, just to start 
+getting my feet wet with npm and node, but it didn&#39;t have this idea 
+baked in. I&#39;ve since come across <a href="http://www.cabinjs.com/">Cabin</a>, which 
+comes very close. You can at least <em>choose</em> any theme you&#39;d like, by 
+passing it a Github project path, e.g <code>CabinJS/Blok</code> (there&#39;s an option to 
+test with local ones as well), and customize thereafter. Cabin is what has 
+generated this page so far. It&#39;s still not quite there with truly 
+plug-and-play themeability, but it&#39;ll do until I decide to add my own 
+contribution to the list of these types of projects, or someone 
+steals (...implements) the idea completely first.</p>
+<p>In fact the Node Package Manager has become so littered with 
+composable tools that Cabin is little more than a 
+<a href="http://gruntjs.com">Gruntfile</a> generator (ok, a bit more than that). 
+This speaks a little to the advantages of following &quot;The Unix Way&quot; 
+(although I don&#39;t believe it&#39;s always necessarily best to follow that 
+dogmatically), and what enables. I just wish npm would grab packages a 
+little faster for an Australian.</p>
+<p>Cabin is composed of its own page generator (making use of 
+<a href="http://jade-lang">jade</a> templates), <a href="http://compass-style.org">compass</a> for 
+some basic styling, <a href="http://pygments.org">pygments</a> for syntax highlighting, 
+and various grunt plugins for moving files around and serving them to your 
+browser. Seriously, you need three different scripting languages installed 
+to get full use out of this thing! Overhead, shmoverhead, we&#39;ve got laziness 
+to enable.</p>
+<p>You&#39;ll probably love static site generators best if you like editing a 
+pure-text format like <a href="http://en.wikipedia.org/wiki/Markdown">markdown</a>, but 
+their other major feature is that there are plenty of options to host them 
+for free these days, and they&#39;re pretty much non-hackable. As far as I know.</p>
+<p>Is there some ridiculously easy to use static site generator that you know of? 
+Or is it way too powerful for its own good? How many options does it have? 
+Let me know.</p>
+
+        <h3 class="signature">- Matt.</h3></div>
+      <!-- Disqus comments-->
+      <div id="comments">
+        <div id="disqus_thread"></div>
+      </div>
+      <script>
+        var disqus_shortname = 'notevencode'; // Change this to your Disqus account name
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div><a href="http://cabinjs.com"><img src="/images/cabin.png" class="cabin"></a>
+  </body>
+  <!-- Piwik-->
+  <script>
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.notevencode.com/" : "http://piwik.notevencode.com/");
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    try {
+      var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+      piwikTracker.trackPageView();
+      piwikTracker.enableLinkTracking();
+    } catch (err) {}
+  </script>
+  <noscript>
+    <p><img src="http://piwik.notevencode.com/piwik.php?idsite=1" style="border:0" alt=""></p>
+  </noscript>
+</html>
