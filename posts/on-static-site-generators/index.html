@@ -14,7 +14,7 @@
         <h2 title="Well, maybe a bit." class="name"><a href="/">not.even.code.</a></h2>
         <ul class="nav-links">
           <li class="text-link"><a href="/about.html">about</a></li>
-          <li class="text-link"><a href="/archives.html">archives</a></li>
+          <li class="text-link"><a href="/archive.html">archive</a></li>
         </ul>
       </nav>
       <div class="post-head group"><a href="/posts/on-static-site-generators/">
@@ -28,6 +28,8 @@ css and js frameworks, transpilers and minifiers.</p>
 of constraints and flexibilities that anyone else&#39;s implements is quite right 
 for their situation, and I think this is a good thing. The more I get to 
 experiment with, or cynically judge unworthy!</p>
+<!-- more -->
+
 <p>This is my first post using one now. I have used 
 <a href="http://octopress.org">Octopress</a> before, but the theming and post creation 
 process was too involved. That may seem incredulous to anyone that has 
@@ -96,19 +98,23 @@ Let me know.</p>
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
       </script>
-    </div><a href="http://cabinjs.com"><img src="/images/cabin.png" class="cabin"></a>
+    </div><a href="http://cabinjs.com"><img src="/images/cabin.png" alt="CabinJS" class="cabin"></a>
+    <!-- Piwik-->
+    <script>
+      var _paq = _paq || [];
+      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+      _paq.push(["setCookieDomain", "*.notevencode.com"]);
+      _paq.push(["trackPageView"]);
+      _paq.push(["enableLinkTracking"]);
+      
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.notevencode.com/";
+        _paq.push(["setTrackerUrl", u+"piwik.php"]);
+        _paq.push(["setSiteId", "1"]);
+        var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+        g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><img src="http://piwik.notevencode.com/piwik.php?idsite=1" style="border:0" alt=""></noscript>
   </body>
-  <!-- Piwik-->
-  <script>
-    var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.notevencode.com/" : "http://piwik.notevencode.com/");
-    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-    try {
-      var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
-      piwikTracker.trackPageView();
-      piwikTracker.enableLinkTracking();
-    } catch (err) {}
-  </script>
-  <noscript>
-    <p><img src="http://piwik.notevencode.com/piwik.php?idsite=1" style="border:0" alt=""></p>
-  </noscript>
 </html>
