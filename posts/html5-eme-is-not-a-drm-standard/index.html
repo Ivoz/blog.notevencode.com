@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/cabin.png">
+    <link href="/styles/main.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Quicksand:300|Source+Code+Pro:400,700|Quattrocento+Sans:400,400italic,700,700italic" rel="stylesheet">
+    <title>HTML5 EME is not a DRM standard. :: not.even.code.</title>
+  </head>
+  <body>
+    <div class="center">
+      <nav class="group">
+        <h2 title="Well, maybe a bit." class="name"><a href="/">not.even.code.</a></h2>
+        <ul class="nav-links">
+          <li class="text-link"><a href="/about.html">about</a></li>
+          <li class="text-link"><a href="/archive.html">archive</a></li>
+        </ul>
+      </nav>
+      <div class="post-head group"><a href="/posts/html5-eme-is-not-a-drm-standard/">
+          <h1 class="post-title">HTML5 EME is not a DRM standard.</h1></a>
+        <p class="post-date"> October 25, 2013</p>
+      </div>
+      <div class="post-body"><p>Probably the hottest thing the W3C is working on right now is their
+<a href="http://www.w3.org/TR/2013/WD-encrypted-media-20131022/#extensions" title="W3C Encrypted Media Extensions">Encrypted Media Extension Working Draft</a>. The EME draft is widely
+talked about as &quot;the DRM standard for HTML5&quot;, but this is not truly what
+it&#39;s content covers. I&#39;ll look at what it is, why it&#39;s not a great
+idea, and some implications of its approval, were it to be approved.</p>
+<!-- more -->
+
+<p>It&#39;s possible to tell what&#39;s <em>actually</em> covered by the W3C&#39;s draft by
+carefully examining its title; the second word - <em>&quot;media&quot;</em> - is
+the key. Your average layman might assume that this refers
+to media in the general sense (and its <em>oh-so-natural</em> wont for encryption);
+whereas in fact, it refers very specifically to HTML5&#39;s <a href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element" title="HTML5 Embedded Content 4.8.10 - Media elements">media elements</a>.
+You might know them as <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code>. The standard
+specifies some funky extensions to their DOM/Javascript API, based around
+cryptographic key management. There is almost nothing here about interesting
+DRM technology, but there <em>are</em> some warnings that it will introduce
+yet another way for advertisers to <a href="http://samy.pl/evercookie/" title="Evercookie">track you</a>. Huzzah.</p>
+<h2><a name="so-where-s-the-drm-"class="anchor" href="#so-where-s-the-drm-"><span class="header-link"></span></a>So where&#39;s the DRM?</h2>
+<p>Good question. It is all hidden away in a little black box called a CDM, or
+Content Decryption Module. Now keep in mind that according to sources like
+<a href="http://arstechnica.com/business/2013/05/drm-in-html5-is-a-victory-for-the-open-web-not-a-defeat/" title="Ars Technica | DRM in HTML5 is a Victory...">Ars Technica</a>: &quot;[EME] ...will allow the delivery of DRM-protected media
+through the browser <strong>without the use of plugins such as Flash or Silverlight</strong>.&quot;
+(emphasis mine). Here&#39;s the definition of a CDM from the draft (Emphasis mine):</p>
+<blockquote>
+<p>The Content Decryption Module (CDM) is a generic term for <strong>a part of 
+or add-on to the user agent</strong> that provides functionality for one or more 
+Key Systems. Implementations may or may not separate the implementations 
+of CDMs and <strong>may or may not treat them as separate from the user agent</strong>. 
+This is transparent to the API and application. 
+A user agent may support one or more CDMs.</p>
+</blockquote>
+<p>A &quot;user agent&quot; here basically refers to your browser.</p>
+<p>Now forgive me for being incredulous, but these things sound <em>an aweful lot
+like plugins</em>. And frankly, that&#39;s not at all surprising. You can&#39;t have a
+successful DRM system without a closed part. If you want to hide or control
+something on a user&#39;s system, you cannot start off with a blank slate - you
+need something hidden or obfuscated already there. HTML5 EME can be summarised
+as laying out an API of Javascript callbacks for retrieving a key.
+Implementation-wise, a key (or license) is pretty much just a bit of JSON.
+The following then roughly occurs:</p>
+<ol>
+<li>The key is passed into a compatible CDM.</li>
+<li>The CDM decrypts your media element&#39;s source.</li>
+<li>It is sent for playback - either to your browser, or through the
+operating system directly (already starting to toss cross-platform
+compatibility to the wind).</li>
+</ol>
+<p>These last three steps - <em>they</em> are the interesting ones. They&#39;re the start
+of how we could get a &quot;DRM standard&quot; that can be implemented by <em>all</em>, not
+just those platforms chosen by Microsoft, Adobe, or your friendly local
+content provider. Here&#39;s how you explain EME&#39;s detail of such steps:</p>
+<p><img src="http://i.imgur.com/fNmDoFS.jpg" alt="Then a miracle occurs." title="Then a miracle occurs."></p>
+<p><em>That&#39;s</em> why it&#39;s not a standard about DRM. There&#39;s no actual standardization
+of DRM to be seen. If anyone still has <em>any</em> doubts that this then still
+invokes &#39;DRM by plugin&#39;, <a href="https://plus.google.com/u/0/100132233764003563318/posts/6QW8TLtV6q3" title="Google+ Widevine Content Decryption Module">here&#39;s a convenient Google+ post</a> by
+François Beaufort, on his former company&#39;s CDM that Google acquired
+to implement EME with Netflix.</p>
+<p>Take a look at the &#39;type&#39; of Module it is in the post&#39;s picture: <a href="https://en.wikipedia.org/wiki/PPAPI#PPAPI" title="NPAPI #PPAPI">PPAPI</a>.
+This is the same plugin API, initially implemented by Chromium, that
+Adobe is now uses for Flash player. Also that which Mozilla declined,
+meaning Firefox is no longer able to run the latest version
+of Flash on Linux. Google&#39;s CDM is therefore using the same plugin protocol
+on Linux which has caused a major part of the anger and movement away from
+Flash in the first place. Pluginless, cross-platform  DRM is clearly
+an absolute fallacy.</p>
+<h2><a name="but-i-still-want-my-netflix-"class="anchor" href="#but-i-still-want-my-netflix-"><span class="header-link"></span></a>But... I still want my Netflix!</h2>
+<p>Ok, sure. <em>Where</em> do you want your Netflix?</p>
+<ul>
+<li>On Windows or Mac? <a href="http://www.microsoft.com/silverlight/" title="Get Silverlight 5">You&#39;ve already got it</a>. This is just
+chopping and changing out one proprietary
+black-box plugin for another.</li>
+<li>On Android? <a href="https://play.google.com/store/apps/details?id=com.netflix.mediaclient&amp;hl=en" title="Netflix on Google Play">Absolutely</a>.</li>
+<li>iOS? <a href="https://itunes.apple.com/us/app/netflix/id363590051?mt=8" title="Netflix on iTunes">Yep, still there</a>.</li>
+<li>Linux? Well, we <em>might</em> be able to <a href="http://www.techrepublic.com/blog/linux-and-open-source/how-to-get-netflix-streaming-on-ubuntu-1210/" title="Get Netflix on Ubuntu 12.10">hack Windows into your system
+again...</a> *</li>
+</ul>
+<p><sup>*please make sure you&#39;re running a recent Ubuntu
+if you want this to be at all simple.</sup></p>
+<p>This isn&#39;t helping the web out either. Forgive me for asking, but why
+exactly do you want swap out a native app experience for playing media
+in your browser? Is that really an improved experience? In addition to
+helping close down web standards and making a usable browser implementation
+even harder to craft and ship, the different browser vendors (both mobile
+and desktop) still have to:</p>
+<ul>
+<li>Figure out how to include proprietary bits of code (CDMs) from multiple
+different content providers or middlemen</li>
+<li>Negotiate and implement API with those providers</li>
+<li>Hope those CDMs will be built for the platform(s) they want to support.</li>
+</ul>
+<p>How these CDMs would be bundled or distributed to everyone is
+also a completely open question. I wish Mozilla all the best of luck if they
+want to achieve all this openly and transparently. Are CDM providers going to
+want to integrate with small software and hardware startups? <em>&quot;Well, do they
+already have a large enough userbase to make the integration worthwhile?&quot;</em> is
+what I can hear them asking.
+Maybe if there were a standard for all this...</p>
+<h2><a name="it-s-open-or-closed-"class="anchor" href="#it-s-open-or-closed-"><span class="header-link"></span></a>It&#39;s open or closed.</h2>
+<p>There&#39;s a good reason that open standards like TCP, HTTP, HTML, XML, JSON, AES
+and many others, are all wildly successful and have defined
+much of modern computing. Anyone can communicate using them, anyone can
+implement them, and anyone can consume them. Not only that, but
+<em>any one implementation should work with any other</em>. A Cisco router
+can interpret a Broadcom NIC. A Microsoft browser can decode Node.js JSON
+responses. Practically everything can parse valid XML.
+HTML is the universal language of the web - renderable by everyone (well,
+except for those <code>&lt;audio&gt;</code> and <a href="http://xiphmont.livejournal.com/61927.html" title="Comments on Cisco, Mozilla and H.264"><code>&lt;video&gt;</code> codec</a> fights...). That is the
+point of open standards - everyone can use them to communicate with everyone,
+no matter who wrote the code.</p>
+<p>EME is a standard that when implemented, can only be assumed to be operable
+with one CDM implementation, on one browser, on one platform. It explicitly
+allows for <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code> to be broken for arbitrary users, no
+matter what codecs they use. Remember when the web was going to &#39;just
+work&#39; <a href="http://www.zdnet.com/blog/networking/flash-is-dead-long-live-html5/1633" title="ZDNet - Flash is dead. Long live HTML5">no matter what plugins you were missing</a>? Apparently
+not a great idea anymore.</p>
+<p><a href="http://www.google.com/intl/en/chrome/devices/" title="Introducing the new Chromebook">ChromeOS</a> Laptops already use it - but if you want to get technical, you
+should be a lot more specific than that. You can view Netflix on your laptop
+<em>if</em> you&#39;re using the <a href="https://en.wikipedia.org/wiki/Trusted_Platform_Module" title="Trusted Platform Module">TPM</a> module, <em>if</em> your hardware is running the commercial
+ChromeOS distribution, <em>if</em> you&#39;re in the Chrome browser (not <a href="http://www.chromium.org/Home" title="The Chromium Projects">Chromium</a>),
+and <em>if</em> you&#39;re using Google&#39;s CDM. Otherwise I&#39;m sure a whole lot 
+of code signatures won&#39;t match and therefore you can&#39;t be
+trusted to watch House of Cards.</p>
+<p>I haven&#39;t even begun to touch on what implementing this standard means for 
+the viability of open platforms and software to continue be useful to the average
+user in the future. Open source software has been pushing technology forwards
+at an alarming pace, and the EME draft implements technology opposed to that.
+It&#39;s saddening that open distributions like Debian won&#39;t be able to
+take part in helping their users play the very media that Debian servers
+are distributing. All take and no give may seem like the status quo these days,
+but it is not in the spirit of the web.</p>
+<h2><a name="don-t-forget-the-cookie-monster-"class="anchor" href="#don-t-forget-the-cookie-monster-"><span class="header-link"></span></a>Don&#39;t forget the cookie monster!</h2>
+<p>There is one last juicy bit of detail that surprisingly, the Draft&#39;s authors
+themselves <a href="http://www.w3.org/TR/2013/WD-encrypted-media-20131022/#privacy-tracking" title="Encrypted Media Extensions - 8.2 Tracking">bring up</a> - another method of unavoidably tracking
+users. Keys aren&#39;t the only thing EME is designed to negotiate - user licenses
+for content are also included. The protocol allows for the browser to
+communicate both ways: not only ask a server for a key, but also allow the CDM
+to transmit back a <a href="http://www.w3.org/TR/2013/WD-encrypted-media-20131022/#session-id" title="Encrypted Media Extensions - 1.2.4 Session ID">session id</a>. This makes sense in context as you want to
+be able to track a user&#39;s license to content, but it&#39;s also easily implemented
+as another variant of <a href="https://en.wikipedia.org/wiki/Local_Shared_Object" title="Local Shared Objects">Local Shared Objects</a> (flash cookies). I wouldn&#39;t
+bank on CDMs making sessions easily accessible, manageable or removeable for
+the user, though - after all, these could effectively be single-user licenses:
+accessible means shareable. If nothing else, I hope the W3C doesn&#39;t implement
+yet another way for companies to track browsing habits with this draft.
+At the very least it shows some direct pitfalls of writing black
+boxes into your specification.</p>
+<h2><a name="tl-dr"class="anchor" href="#tl-dr"><span class="header-link"></span></a>TL;DR</h2>
+<ul>
+<li>There is absolutely no doubt that HTML EME is <em>still</em> well and truly
+<strong>DRM by plugin</strong>. The module ChromeOS uses even runs on the same plugin
+API that Flash does.</li>
+<li>EME is a standard about key management, not DRM - it doesn&#39;t help
+improve compatibility among browser implementations, but I don&#39;t know
+why anyone would ever hope it could.</li>
+<li><a href="http://www.w3.org/2011/tracking-protection/" title="W3C Tracking Protection Working Group">Ironically</a>, this is a standard by W3C that specifies methods for
+still more surreptitious user-tracking.
+Though given its nature, this is hardly surprising.</li>
+</ul>
+
+        <h3 class="signature">- Matt.</h3></div>
+      <!-- Disqus comments-->
+      <div id="comments">
+        <div id="disqus_thread"></div>
+      </div>
+      <script>
+        var disqus_shortname = 'notevencode'; // Change this to your Disqus account name
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div><a href="http://cabinjs.com"><img src="/images/cabin.png" alt="CabinJS" class="cabin"></a>
+    <!-- Piwik-->
+    <script>
+      var _paq = _paq || [];
+      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+      _paq.push(["setCookieDomain", "*.notevencode.com"]);
+      _paq.push(["trackPageView"]);
+      _paq.push(["enableLinkTracking"]);
+      
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.notevencode.com/";
+        _paq.push(["setTrackerUrl", u+"piwik.php"]);
+        _paq.push(["setSiteId", "1"]);
+        var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+        g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><img src="http://piwik.notevencode.com/piwik.php?idsite=1" style="border:0" alt=""></noscript>
+  </body>
+</html>

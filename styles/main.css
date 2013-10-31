@@ -1048,110 +1048,87 @@ nav {
   padding-bottom: 5px;
 }
 /* line 4, ../../src/styles/_post.scss */
+.post-head h1 {
+  text-align: center;
+}
+/* line 8, ../../src/styles/_post.scss */
 .post-head a {
   text-decoration: none;
 }
 
-/* line 9, ../../src/styles/_post.scss */
+/* line 13, ../../src/styles/_post.scss */
 .post-title {
   margin: 15px 0;
   font-weight: normal;
   font-size: 2.8em;
 }
 
-/* line 15, ../../src/styles/_post.scss */
+/* line 19, ../../src/styles/_post.scss */
 .post-date {
   font-size: 1.3em;
   color: rgba(57, 56, 56, 0.5);
+  text-align: center;
+  margin: 0;
 }
 
-/* line 20, ../../src/styles/_post.scss */
+/* line 26, ../../src/styles/_post.scss */
 .post-body {
   margin-bottom: 1.2em;
   line-height: 1.65em;
 }
-/* line 24, ../../src/styles/_post.scss */
+/* line 30, ../../src/styles/_post.scss */
 .post-body a {
   text-decoration: none;
   font-weight: bold;
   color: #00334d;
 }
-/* line 33, ../../src/styles/_post.scss */
+/* line 39, ../../src/styles/_post.scss */
 .post-body img {
   max-width: 100%;
 }
 
-/* line 38, ../../src/styles/_post.scss */
+/* line 44, ../../src/styles/_post.scss */
 .anchor {
   text-decoration: none;
   position: absolute;
   margin-left: -1.7em;
   padding-left: 1.7em;
 }
-/* line 43, ../../src/styles/_post.scss */
+/* line 49, ../../src/styles/_post.scss */
 .anchor:focus {
   outline: none;
 }
 
-/* line 49, ../../src/styles/_post.scss */
+/* line 55, ../../src/styles/_post.scss */
 h1, h2, h3,
 h4, h5, h6 {
   font-family: "Quicksand", sans-serif;
   font-weight: normal;
 }
-/* line 52, ../../src/styles/_post.scss */
+/* line 58, ../../src/styles/_post.scss */
 h1:hover .header-link, h2:hover .header-link, h3:hover .header-link,
 h4:hover .header-link, h5:hover .header-link, h6:hover .header-link {
   visibility: visible;
 }
 
-/* line 57, ../../src/styles/_post.scss */
+/* line 63, ../../src/styles/_post.scss */
 h2 {
   font-size: 1.9em;
 }
 
-/* line 61, ../../src/styles/_post.scss */
+/* line 67, ../../src/styles/_post.scss */
 h3 {
   font-size: 1.5em;
 }
 
-/* line 65, ../../src/styles/_post.scss */
-.header-link {
-  margin-left: -1.7em;
-  font-size: .65em;
-  visibility: hidden;
-}
-
-/* line 72, ../../src/styles/_post.scss */
-.highlight pre {
-  padding: 15px;
-  margin-bottom: 0;
+/* line 71, ../../src/styles/_post.scss */
+blockquote {
+  border-left: 0.3em solid #eee;
+  padding-left: 1em;
+  margin-left: 1em;
 }
 
 /* line 77, ../../src/styles/_post.scss */
-.highlight {
-  margin-left: 10px;
-  margin-right: 20px;
-}
-
-/* line 83, ../../src/styles/_post.scss */
-.highlight,
-p code {
-  border: 1px solid #e6e6e6;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-}
-
-/* line 89, ../../src/styles/_post.scss */
-p code {
-  background: #fafaff;
-  padding: 0 0.23em 0.1em 0.23em;
-}
-
-/* line 94, ../../src/styles/_post.scss */
 code {
   margin: 0;
   padding: 0;
@@ -1160,10 +1137,44 @@ code {
   font-family: "Source Code Pro", Consolas, monospace;
 }
 
-/* line 102, ../../src/styles/_post.scss */
+/* line 85, ../../src/styles/_post.scss */
 pre {
   font-family: "Source Code Pro", Consolas, monospace;
   overflow: auto;
   margin-top: 0em;
   margin-bottom: -1.5em;
+}
+
+/* line 92, ../../src/styles/_post.scss */
+.highlight, p code {
+  border: 1px solid #e6e6e6;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* line 98, ../../src/styles/_post.scss */
+p code {
+  background: #fafaff;
+  padding: 0 0.23em 0.1em 0.23em;
+}
+
+/* line 103, ../../src/styles/_post.scss */
+.highlight {
+  margin-left: 10px;
+  margin-right: 20px;
+}
+/* line 106, ../../src/styles/_post.scss */
+.highlight pre {
+  padding: 15px;
+  margin-bottom: 0;
+}
+
+/* line 112, ../../src/styles/_post.scss */
+.header-link {
+  margin-left: -1.7em;
+  font-size: .65em;
+  visibility: hidden;
 }
