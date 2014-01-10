@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/images/cabin.png">
+    <link href="/styles/main.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Quicksand:300|Source+Code+Pro:400,700|Quattrocento+Sans:400,400italic,700,700italic" rel="stylesheet">
+    <title>Distribute Must Die :: not.even.code.</title>
+    <meta name="description" content="a.k.a, Distribute is dead; long live Distribute!">
+  </head>
+  <body>
+    <div class="center">
+      <nav class="group">
+        <h2 title="Well, maybe a bit." class="name"><a href="/">not.even.code.</a></h2>
+        <ul class="nav-links">
+          <li class="text-link"><a href="/about.html">about</a></li>
+          <li class="text-link"><a href="/archive.html">archive</a></li>
+        </ul>
+      </nav>
+      <div class="post-head group"><a href="/posts/distribute-must-die/">
+          <h1 class="post-title">Distribute Must Die</h1></a>
+        <p class="post-date"> January 10, 2014</p>
+      </div>
+      <div class="post-body"><p>A.K.A <a href="https://pypi.python.org/pypi/distribute">distribute</a> is dead; long live distribute!</p>
+<h2><a name="why-"class="anchor" href="#why-"><span class="header-link"></span></a>Why?</h2>
+<p>Hopefully most people know that distribute is now deprecated, and the
+entirety of its functionality has been merged into the updated and now
+active <a href="https://pypi.python.org/pypi/setuptools">setuptools</a> project. If you didn&#39;t, consider yourself informed.</p>
+<p>If you&#39;ve never used distribute or setuptools before, they are almost worth
+it solely for their addition of <code>install_requires</code> in a python package&#39;s
+<code>setup()</code> function, which allows one to specify software dependencies
+of your python code before it will install.
+That, and they are required by the wonderful <a href="http://pip-installer.org">pip</a>.
+Along with active development, setuptools and python packaging are improving
+at a rapid pace, making things easier and simpler for everyone. If you are
+currently using distribute or your packages work directly with it, please
+consider updating your little bit of python to the latest tools!</p>
+<p>There are also practical reasons for updating: not only a myriad of bug fixes,
+until roughly v1.0, setuptools/distribute didn&#39;t properly use a
+verified HTTPS connection to download all resources. You want this for
+the thing that installs your software! Over time it&#39;s also gained support
+for a new installation format as well, which you&#39;ll hear about below.
+At the time of writing, PyPI tells me that distribute has been downloaded
+384810 times this week. We need to move on!</p>
+<!-- more -->
+
+<h2><a name="how-"class="anchor" href="#how-"><span class="header-link"></span></a>How?</h2>
+<h3><a name="with-a-python-package-"class="anchor" href="#with-a-python-package-"><span class="header-link"></span></a>With a python package:</h3>
+<p>You might have a file called <code>distribute_setup.py</code> in the root of your python
+project. This is a bootstrap file that can import all that nice installation
+functionality if the user doesn&#39;t have setuptools or distribute installed.
+When run directly through python it would also install distribute for you.
+Essentially, you should replace this file with one called <code>ez_setup.py</code>
+which can be retrieved from
+<a href="https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py">https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</a></p>
+<p>Notice the use of bitbucket&#39;s TLS connection to ensure you receive the
+correct file. Your code in setuptools might then look like this:</p>
+<pre><code class="lang-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">setuptools</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">ez_setup</span> <span class="kn">import</span> <span class="n">use_setuptools</span>
+    <span class="n">use_setuptools</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+
+<span class="o">...</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</code></pre>
+<p>If you have any automated process to retrieve and install distribute, replace
+it with setuptools.</p>
+<h3><a name="with-your-system-s-python-"class="anchor" href="#with-your-system-s-python-"><span class="header-link"></span></a>With your system&#39;s python:</h3>
+<p>If you have distribute installed on your system (or a very old &lt;=0.6
+setuptools), you should first uninstall or delete it as necessary,
+and then install a new setuptools (easiest way to ensure you upgrade cleanly).</p>
+<p>Installing setuptools from scratch can be done on a *nix system like so:</p>
+<pre><code class="lang-sh"><div class="highlight"><pre>wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py <span class="p">|</span> python
+</pre></div>
+</code></pre>
+<p>It may need to be done as root to update your system files.</p>
+<p>On Windows you should be be able to simply download and double click the file
+to have python run it.</p>
+<p>Your goal is to have setuptools 2.x if you run Python &gt;=2.6, or 1.4.2 if you
+are unfortunate enough to run 2.4 or 2.5. Or at the <em>very</em> least
+some version &gt;1.</p>
+<p>Please also consider updating to the latest versions of <code>pip</code> and <code>virtualenv</code>,
+if you use those. Such a command to that is <code>pip install -U pip virtualenv</code>.</p>
+<h2><a name="why-now-"class="anchor" href="#why-now-"><span class="header-link"></span></a>Why now?</h2>
+<p>If you&#39;ve been in the python packaging business for a few years, either
+trying to distribute your own code, or just installing others&#39;, you might have
+seen this image floating around at some point in your travels:</p>
+<p><img src="http://i.imgur.com/CZoLou4.png" alt="Distribute and Pip are the new hotness!"></p>
+<p>Ahh, the days when &quot;new hotness&quot; was still a cool phrase.</p>
+<p>It&#39;s from a time when not so many cared about the python packaging ecosystem,
+but a few were trying to improve it. Ian Bicking was working on some
+cool new installation tool called <a href="http://pip-installer.org">pip</a> (now with the ability to
+<em>uninstall</em> things!) and Tarek Ziadé had forked the languishing <a href="https://pypi.python.org/pypi/setuptools">setuptools</a>
+project into distribute, to further improve it (python 3 compatibility was
+nice). Tarek has evidently put a <a href="https://bitbucket.org/tarek/distribute/overview">lot</a> of <a href="http://www.python.org/dev/peps/pep-0376/">work</a> into <a href="http://www.aosabook.org/en/packaging.html">python
+packaging</a> as a whole when many others weren&#39;t, so unless I missed it
+I believe a lot of thanks is owed to him that he never received, for pushing it
+as far as he did when it needed it most. As far as I can gather, he took so
+much heat for his troubles and effort that he decided to stop working on the
+problem all together. Fortunately it didn&#39;t stop him writing great python; his
+newest <a href="http://circus.readthedocs.org/en/latest/">baby</a> looks extremely cool.</p>
+<p>Around 2011, a lot of other people realised that the state of python&#39;s
+&quot;standard&quot; packaging tools could be in a hell of a lot better shape than they
+were, and weren&#39;t serving users that well. Some decided to create alternative
+systems like <a href="http://docs.continuum.io/conda/index.html">conda</a>, while some decided to improve what was already there.
+Probably the largest sea-change was to reinvigorate setuptools
+by merging most of distribute into it (or possibly the other way around). To
+this day I am a little confused as to why the merge was named &quot;setuptools&quot;
+rather than &quot;distribute&quot;, because it retroactively made the above image and
+its advice unfortunately misleading. I imagine more than a few heads were
+scratched coming to terms with the fact that the name of the active project
+to be preferred had completely swapped. But it is as it is.</p>
+<p>There is a <em>lot</em> more to be said about the history of python&#39;s
+packaging ecosystem, and I really haven&#39;t done any justice to it,
+but that&#39;s a little outside of this post&#39;s scope.
+<a href="http://mirror.linux.org.au/linux.conf.au/2014/Thursday/75-Python_Packaging_2.0_Playing_Well_With_Others_-_Nick_Coghlan.mp4">This video</a> should be an interesting watch if you want to
+know more.</p>
+<p>As 2014 comes around a lot has changed and practically all for the better,
+so it&#39;s a great time to update what you&#39;re using. <a href="http://wheel.readthedocs.org/">Wheels</a> are out, which
+are a binary distribution format that essentially supersede eggs, are
+pip-installable, and make things a lot easier for anyone distributing code that
+isn&#39;t pure-python. But you&#39;ll need a recent setuptools and pip to use them!
+I now whole-heatedly recommend <a href="http://www.virtualenv.org">virtualenv</a> to manage isolated python
+environments, which are amazingly useful if you ever happen to work on more
+than one python project involving 3rd party packages.</p>
+<p>There is still a lot of work to be done also, especially for folks like Numpy.
+They have complex binary dependencies to make their scientific python as fast
+as it is, and sorting out how to manage those and still make things easy for
+the user is by no means a solved problem. So <code>pip install numpy</code> is not yet a
+recommended practice (you&#39;ll most likely get a very slow Numpy from doing so).
+There is also a lot of bad blood to wash away from when setuptools was a
+<em>completely</em> inadequate solution for them.</p>
+<p>So of course, in order to improve things as fast as possible, it&#39;s best to
+move on from legacy packaging tools, which are as of writing <code>distribute</code>
+and <code>easy_install</code>.</p>
+<h2><a name="more-hints-tips"class="anchor" href="#more-hints-tips"><span class="header-link"></span></a>More Hints &amp; Tips</h2>
+<ul>
+<li><p><a href="http://python-packaging-user-guide.readthedocs.org">The Python Packaging User Guide</a> aims to be the ultimate resource
+to help out anyone with regards to python packages. Just getting something
+cool installed, or building your own. If someone asks you &quot;so how do I
+install python package <em>x</em>?&quot;, you can now give them this link.</p>
+</li>
+<li><p>It&#39;s run by the Python Package Authority (PyPA), which have prominent
+<a href="https://github.com/pypa">Github</a> and <a href="https://bitbucket.org/pypa/">Bitbucket</a> accounts that organise and build
+some of the most central packaging software around. You can talk in <code>#pypa</code>
+on the Freenode IRC network, or their <a href="https://groups.google.com/forum/#!topic/pypa-dev/">Google Group</a> as well.</p>
+</li>
+<li><p><a href="https://pypi.python.org/pypi/twine">Twine</a>, by Donald Stufft, makes it both very easy and secure to upload
+packages of all kinds to PyPI. Check it out!</p>
+</li>
+<li><p><a href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> makes working with virtualenvs <em>even easier</em> once you
+learn a few of its awesome commands, like <code>mkproject</code>.</p>
+</li>
+</ul>
+<p>For anyone that ever installs and tests a lot of package-based software,
+wheels should make this process a <em>lot</em> faster. Not only are they fast to
+install, you can create a cache of them from which <code>pip</code> can fetch them
+locally, rather than downloading and installing each time. Check out the
+<code>pip wheel</code> command and the <a href="http://wheel.readthedocs.org/en/latest/#usage">Usage Section</a> of the wheel docs.
+Integrating this workflow into python software building should cut down
+almost anyone&#39;s build times drastically.</p>
+<p>For anyone that&#39;s interested in cryptographically making sure their packages
+are what they say they are and come from who they&#39;re supposed to, wheel also
+comes with the <code>keygen</code>, <code>sign</code>, and <code>verify</code> commands to do this easily. I
+bet there will come a time when this attack vector becomes important enough
+for everyone to really start taking it seriously, so it&#39;s great to see python
+is doing something about it now.</p>
+<p>The soon-to-be-released python 3.4 should also start coming with pip <a href="http://docs.python.org/3.4/whatsnew/3.4.html#pep-453-explicit-bootstrapping-of-pip-in-python-installations">out of 
+the box</a>, which will be awesome for starting off newbies.
+Lastly, there&#39;s also work to refresh the venerable PyPI with a better, tested
+code base to allow even more cool stuff to be done in the future - <a href="https://github.com/pypa/warehouse">warehouse</a>.</p>
+<p>It&#39;s a bright and fervous time for python packaging!</p>
+
+        <h3 class="signature">- Matt.</h3></div>
+      <!-- Disqus comments-->
+      <div id="comments">
+        <div id="disqus_thread"></div>
+      </div>
+      <script>
+        var disqus_shortname = 'notevencode'; // Change this to your Disqus account name
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div><a href="http://cabinjs.com"><img src="/images/cabin.png" alt="CabinJS" class="cabin"></a>
+    <!-- Piwik-->
+    <script>
+      var _paq = _paq || [];
+      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+      _paq.push(["setCookieDomain", "*.notevencode.com"]);
+      _paq.push(["trackPageView"]);
+      _paq.push(["enableLinkTracking"]);
+      
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.notevencode.com/";
+        _paq.push(["setTrackerUrl", u+"piwik.php"]);
+        _paq.push(["setSiteId", "1"]);
+        var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+        g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><img src="http://piwik.notevencode.com/piwik.php?idsite=1" style="border:0" alt=""></noscript>
+  </body>
+</html>

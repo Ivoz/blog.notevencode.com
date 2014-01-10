@@ -17,6 +17,37 @@
           <li class="text-link"><a href="/archive.html">archive</a></li>
         </ul>
       </nav>
+      <div class="post-head group"><a href="/posts/distribute-must-die/">
+          <h1 class="post-title">Distribute Must Die</h1></a>
+        <p class="post-date"> January 10, 2014</p>
+      </div>
+      <div class="post-body"><p>A.K.A <a href="https://pypi.python.org/pypi/distribute">distribute</a> is dead; long live distribute!</p>
+<h2><a name="why-"class="anchor" href="#why-"><span class="header-link"></span></a>Why?</h2>
+<p>Hopefully most people know that distribute is now deprecated, and the
+entirety of its functionality has been merged into the updated and now
+active <a href="https://pypi.python.org/pypi/setuptools">setuptools</a> project. If you didn&#39;t, consider yourself informed.</p>
+<p>If you&#39;ve never used distribute or setuptools before, they are almost worth
+it solely for their addition of <code>install_requires</code> in a python package&#39;s
+<code>setup()</code> function, which allows one to specify software dependencies
+of your python code before it will install.
+That, and they are required by the wonderful <a href="http://pip-installer.org">pip</a>.
+Along with active development, setuptools and python packaging are improving
+at a rapid pace, making things easier and simpler for everyone. If you are
+currently using distribute or your packages work directly with it, please
+consider updating your little bit of python to the latest tools!</p>
+<p>There are also practical reasons for updating: not only a myriad of bug fixes,
+until roughly v1.0, setuptools/distribute didn&#39;t properly use a
+verified HTTPS connection to download all resources. You want this for
+the thing that installs your software! Over time it&#39;s also gained support
+for a new installation format as well, which you&#39;ll hear about below.
+At the time of writing, PyPI tells me that distribute has been downloaded
+384810 times this week. We need to move on!</p>
+</div>
+      <!-- .comments-->
+      <!--   a(href="#{data.baseUrl}#{post.url}#comments") Comments-->
+      <!--     span.icon-bubble-->
+      <p class="more"><a href="/posts/distribute-must-die/">...</a></p>
+      <hr>
       <div class="post-head group"><a href="/posts/html5-eme-is-not-a-drm-standard/">
           <h1 class="post-title">HTML5 EME is not a DRM standard.</h1></a>
         <p class="post-date"> October 31, 2013</p>
