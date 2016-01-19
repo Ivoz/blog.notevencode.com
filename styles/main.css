@@ -1148,11 +1148,11 @@ pre {
 /* line 92, ../../src/styles/_post.scss */
 .highlight, p code {
   border: 1px solid #e6e6e6;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  -ms-border-radius: 1em;
+  -o-border-radius: 1em;
+  border-radius: 1em;
 }
 
 /* line 98, ../../src/styles/_post.scss */

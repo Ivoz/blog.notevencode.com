@@ -20,7 +20,7 @@
       </nav>
       <div class="post-head group"><a href="/posts/distribute-must-die/">
           <h1 class="post-title">Distribute Must Die</h1></a>
-        <p class="post-date"> January 10, 2014</p>
+        <p class="post-date"></p>
       </div>
       <div class="post-body"><p>A.K.A <a href="https://pypi.python.org/pypi/distribute">distribute</a> is dead; long live distribute!</p>
 <h2><a name="why-"class="anchor" href="#why-"><span class="header-link"></span></a>Why?</h2>
@@ -87,8 +87,9 @@ to have python run it.</p>
 <p>Your goal is to have setuptools 2.x if you run Python &gt;=2.6, or 1.4.2 if you
 are unfortunate enough to run 2.4 or 2.5. Or at the <em>very</em> least
 some version &gt;1.</p>
-<p>Please also consider updating to the latest versions of <code>pip</code> and <code>virtualenv</code>,
-if you use those. Such a command to that is <code>pip install -U pip virtualenv</code>.</p>
+<p>Please also consider updating to the latest versions of <code>pip</code>, <code>setuptools</code>
+and <code>virtualenv</code>, if you use those.
+Such a command to do so is <code>pip install -U pip setuptools virtualenv</code>.</p>
 <h2><a name="why-now-"class="anchor" href="#why-now-"><span class="header-link"></span></a>Why now?</h2>
 <p>If you&#39;ve been in the python packaging business for a few years, either
 trying to distribute your own code, or just installing others&#39;, you might have
@@ -135,9 +136,9 @@ than one python project involving 3rd party packages.</p>
 They have complex binary dependencies to make their scientific python as fast
 as it is, and sorting out how to manage those and still make things easy for
 the user is by no means a solved problem. So <code>pip install numpy</code> is not yet a
-recommended practice (you&#39;ll most likely get a very slow Numpy from doing so).
-There is also a lot of bad blood to wash away from when setuptools was a
-<em>completely</em> inadequate solution for them.</p>
+recommended practice (you&#39;ll most likely get a very slow Numpy from doing so,
+if it even installs at all). There is also a lot of bad blood to wash away
+from when setuptools was a <em>completely</em> inadequate solution for them.</p>
 <p>So of course, in order to improve things as fast as possible, it&#39;s best to
 move on from legacy packaging tools, which are as of writing <code>distribute</code>
 and <code>easy_install</code>.</p>
@@ -148,7 +149,7 @@ to help out anyone with regards to python packages. Just getting something
 cool installed, or building your own. If someone asks you &quot;so how do I
 install python package <em>x</em>?&quot;, you can now give them this link.</p>
 </li>
-<li><p>It&#39;s run by the Python Package Authority (PyPA), which have prominent
+<li><p>It&#39;s run by the Python Packaging Authority (PyPA), which have prominent
 <a href="https://github.com/pypa">Github</a> and <a href="https://bitbucket.org/pypa/">Bitbucket</a> accounts that organise and build
 some of the most central packaging software around. You can talk in <code>#pypa</code>
 on the Freenode IRC network, or their <a href="https://groups.google.com/forum/#!topic/pypa-dev/">Google Group</a> as well.</p>
@@ -177,7 +178,7 @@ is doing something about it now.</p>
 the box</a>, which will be awesome for starting off newbies.
 Lastly, there&#39;s also work to refresh the venerable PyPI with a better, tested
 code base to allow even more cool stuff to be done in the future - <a href="https://github.com/pypa/warehouse">warehouse</a>.</p>
-<p>It&#39;s a bright and fervous time for python packaging!</p>
+<p>It&#39;s a bright and fervorous time for python packaging!</p>
 
         <h3 class="signature">- Matt.</h3></div>
       <!-- Disqus comments-->
